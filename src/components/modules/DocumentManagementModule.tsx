@@ -90,7 +90,7 @@ export const DocumentManagementModule: React.FC<DocumentManagementModuleProps> =
             </h2>
           </div>
           <p className="text-xs text-slate-500 mt-1 font-medium">
-            Pengarsipan Dokumen Maritim Terpusat, Smart Search, OCR Indexing, dan Ringkasan Kontrak Otomatis oleh Gemini 3.5 Flash
+            Pengarsipan Dokumen Maritim Terpusat, Smart Search, OCR Indexing, dan Ringkasan Kontrak Otomatis oleh LARS-AI Engine
           </p>
         </div>
 
@@ -255,7 +255,7 @@ export const DocumentManagementModule: React.FC<DocumentManagementModuleProps> =
                       AI Document Summarizer
                     </h3>
                     <p className="text-[11px] text-slate-500 font-medium">
-                      Ekstraksi Inteligensi Gemini 3.5 Flash
+                      Ekstraksi Inteligensi LARS-AI Engine
                     </p>
                   </div>
                 </div>
@@ -285,7 +285,7 @@ export const DocumentManagementModule: React.FC<DocumentManagementModuleProps> =
                 <div className="py-12 text-center space-y-3">
                   <Loader2 className="w-8 h-8 text-teal-600 animate-spin mx-auto" />
                   <p className="text-xs text-slate-500 font-medium">
-                    Menganalisis teks OCR & struktur klausul dokumen menggunakan Gemini 3.5 Flash...
+                    Menganalisis teks OCR & struktur klausul dokumen menggunakan LARS-AI Engine...
                   </p>
                 </div>
               ) : (

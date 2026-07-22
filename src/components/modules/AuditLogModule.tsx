@@ -75,7 +75,7 @@ export const AuditLogModule: React.FC = () => {
             <span className="text-[10px] font-bold text-slate-400 uppercase">AI SAFETY GUARDRAIL</span>
             <Key className="w-4 h-4 text-purple-600" />
           </div>
-          <div className="text-xl font-black text-purple-700">Gemini 3.5 Filtered</div>
+          <div className="text-xl font-black text-purple-700">LARS-AI Filtered</div>
           <p className="text-[10px] text-slate-500 font-medium">Pencegahan kebocoran data rahasia maritim</p>
         </div>
       </div>

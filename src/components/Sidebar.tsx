@@ -30,7 +30,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id: 'chatbot' as ModuleType,
       label: 'AI Chatbot Assistant',
       icon: MessageSquare,
-      badge: 'Gemini 3.5',
+      badge: 'LARS-AI',
       badgeColor: 'bg-teal-50 text-teal-700 border-teal-200',
     },
     {
@@ -109,7 +109,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           LARS AI Engine Core
         </div>
         <p className="text-[10px] text-slate-500 leading-tight font-medium">
-          Powered by Google Gen AI SDK (`gemini-3.5-flash`). Light sleek UI theme enabled.
+          Powered by LARS-AI Maritime Engine. Zero latency response & computer vision inspection ready.
         </p>
       </div>
     </aside>

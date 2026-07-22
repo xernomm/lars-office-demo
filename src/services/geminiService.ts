@@ -10,10 +10,10 @@ try {
     aiClient = new GoogleGenAI({ apiKey });
   }
 } catch (err) {
-  console.warn('Google GenAI initialization notice:', err);
+  console.warn('AI initialization notice:', err);
 }
 
-export const MODEL_NAME = 'gemini-3.5-flash';
+export const MODEL_NAME = 'gemini-2.5-flash';
 
 /**
  * AI Chat Assistant Handler
@@ -27,7 +27,7 @@ export async function sendChatMessageToGemini(
     ? ' [Jawab dalam Bahasa Indonesia yang profesional dan formal sesuai standar industri maritim LARS]'
     : ' [Respond in professional maritime enterprise English]';
 
-  const systemInstruction = `Anda adalah LARS AI Assistant, kecerdasan buatan maritim resmi dari LARS Maritime Intelligence. 
+  const systemInstruction = `Anda adalah LARS-AI Assistant, kecerdasan buatan maritim resmi dari LARS Maritime Intelligence. 
 Anda ahli dalam SOP survei kapal, regulasi maritim internasional (SOLAS, MARPOL, ISM Code), estimasi biaya, audit teknis, analisis dokumen, serta asistensi kantor & rapat.`;
 
   if (aiClient) {
@@ -43,7 +43,7 @@ Anda ahli dalam SOP survei kapal, regulasi maritim internasional (SOLAS, MARPOL,
         return response.text;
       }
     } catch (error) {
-      console.warn('Gemini API call warning, falling back to mock response:', error);
+      console.warn('AI API call warning, falling back to mock response:', error);
     }
   }
 
@@ -79,11 +79,11 @@ export async function analyzeImageWithGeminiVision(
         return response.text;
       }
     } catch (error) {
-      console.warn('Gemini Vision API fallback:', error);
+      console.warn('Vision API fallback:', error);
     }
   }
 
-  return `[COMPUTER VISION DETECTED - GEMINI 2.5 FLASH]
+  return `[COMPUTER VISION DETECTED - LARS-AI ENGINE]
 - Temuan Utama: Terdeteksi korosi permukaan sedang (surface corrosion) pada area Bottom Plate bagian portside kapal.
 - Area Cangkupan: Memenuhi approx 15% dari luas area plat yang terfoto.
 - Tingkat Keparahan: Medium (Perlu perlakuan sandblasting & recoating grade marine epoxy).
@@ -127,19 +127,19 @@ Tolong keluarkan jawaban ringkasan AI dalam format poin terstruktur:
         rawSummary = response.text;
       }
     } catch (error) {
-      console.warn('Gemini Document Summarize warning:', error);
+      console.warn('Document Summarize warning:', error);
     }
   }
 
   if (!rawSummary) {
     rawSummary = language === 'ID'
-      ? `Ringkasan Otomatis LARS AI untuk "${docTitle}":
+      ? `Ringkasan Otomatis LARS-AI untuk "${docTitle}":
 • Pihak Terlibat: PT LARS Maritime Intelligence & Klien Terkait
 • Nilai Kontrak / Estimasi: IDR 450.000.000 / USD 30,000
 • Ruang Lingkup: Inspeksi teknis On-Hire Condition, pengujian lambung, verifikasi dokumen class SOLAS.
 • Masa Berlaku: 12 Bulan (Mei 2024 - Mei 2025)
 • Compliance Score: 98% (Sesuai Regulasi BKI & IMO)`
-      : `LARS AI Automated Summary for "${docTitle}":
+      : `LARS-AI Automated Summary for "${docTitle}":
 • Parties Involved: PT LARS Maritime Intelligence & Associated Client
 • Contract Value: IDR 450,000,000 / USD 30,000
 • Scope of Work: Technical On-Hire inspection, hull testing, SOLAS class document verification.
@@ -202,7 +202,7 @@ Gunakan bahasa: ${language === 'ID' ? 'Bahasa Indonesia' : 'English'}`;
           if (jsonMatch) {
             const parsed = JSON.parse(jsonMatch[0]);
             return {
-              executiveSummary: parsed.executiveSummary || 'Ringkasan survei berhasil diekstrak oleh LARS AI.',
+              executiveSummary: parsed.executiveSummary || 'Ringkasan survei berhasil diekstrak oleh LARS-AI.',
               detailedFindings: Array.isArray(parsed.detailedFindings) ? parsed.detailedFindings : [findingsText],
               recommendations: Array.isArray(parsed.recommendations) ? parsed.recommendations : ['Lakukan pemantauan berkala.'],
             };
@@ -212,7 +212,7 @@ Gunakan bahasa: ${language === 'ID' ? 'Bahasa Indonesia' : 'English'}`;
         }
       }
     } catch (err) {
-      console.warn('Gemini Full Survey Report generation error:', err);
+      console.warn('Full Survey Report generation error:', err);
     }
   }
 
@@ -296,11 +296,11 @@ function getMockChatResponse(prompt: string, language: 'ID' | 'EN'): string {
       ? `### Maritime Regulatory Intelligence (SOLAS & MARPOL Updates)
 - **SOLAS Chapter II-1:** Enhanced damage stability requirements for tankers and cargo vessels built post-2024.
 - **MARPOL Annex VI (Decarbonization):** CII (Carbon Intensity Indicator) and EEXI compliance tracking mandatory for all vessels >5,000 GT.
-- **LARS Compliance Note:** All LARS AI survey templates are updated to reflect the latest IMO 2024 Maritime Safety Committee resolutions.`
+- **LARS Compliance Note:** All LARS-AI survey templates are updated to reflect the latest IMO 2024 Maritime Safety Committee resolutions.`
       : `### Regulasi Maritim Internasional (SOLAS & MARPOL)
 - **SOLAS Bab II-1:** Persyaratan stabilitas kebocoran (damage stability) yang ditingkatkan untuk kapal tanker & kargo.
 - **MARPOL Annex VI (Dekarbonisasi):** Kewajiban pemantauan indikator intensitas karbon (CII) & EEXI untuk kapal di atas 5.000 GT.
-- **Catatan Kepatuhan LARS:** Seluruh template survei LARS AI telah diperbarui sesuai resolusi IMO MSC terbaru 2024.`;
+- **Catatan Kepatuhan LARS:** Seluruh template survei LARS-AI telah diperbarui sesuai resolusi IMO MSC terbaru 2024.`;
   }
 
   if (p.includes('email') || p.includes('drafting')) {
@@ -319,7 +319,7 @@ Key Summary:
 Please feel free to reach out should you require further clarification.
 
 Best regards,
-LARS AI Assistant / Customer Support`
+LARS-AI Assistant / Customer Support`
       : `Subjek: Pemberitahuan LARS AI - Selesainya Inspeksi MT. Ocean Glory
 
 Kepada Yth. Tim Manajemen / Klien Terhormat,
@@ -329,12 +329,12 @@ Dengan hormat, kami sampaikan bahwa Survei Kondisi Kapal MT. Ocean Glory telah s
 Ringkasan Utama:
 - Tanggal Inspeksi: 18 Mei 2024
 - Skor Kondisi Kapal: BAIK (94,5%)
-- Laporan Teknis Lengkap: Siap diunduh melalui Portal Klien LARS AI.
+- Laporan Teknis Lengkap: Siap diunduh melalui Portal Klien LARS-AI.
 
 Terima kasih atas kerja samanya.
 
 Hormat Kami,
-LARS AI Assistant / PT LARS Maritime Intelligence`;
+LARS-AI Assistant / PT LARS Maritime Intelligence`;
   }
 
   if (p.includes('meeting') || p.includes('notulen') || p.includes('rapat')) {
@@ -343,19 +343,19 @@ LARS AI Assistant / PT LARS Maritime Intelligence`;
 - **Date:** 22 July 2024
 - **Attendees:** Board of Directors, Operations Manager, Chief Surveyor
 - **Key Decisions:**
-  1. Approved expansion of AI Vision inspection tools to 15 additional survey teams.
+  1. Approved expansion of LARS-AI Vision inspection tools to 15 additional survey teams.
   2. Target 50-70% reduction in report generation lead time achieved in Q2.
   3. Scheduled ISO 27001 cybersecurity audit for DMS cloud storage next month.`
       : `### Ringkasan Notulen Rapat Direksi LARS
 - **Tanggal:** 22 Juli 2024
 - **Peserta:** Direktur Utama, Manager Operasional, Chief Surveyor
 - **Keputusan Utama:**
-  1. Menyetujui implementasi AI Vision pada 15 tim surveyor lapangan.
+  1. Menyetujui implementasi LARS-AI Vision pada 15 tim surveyor lapangan.
   2. Target efisiensi pembuatan laporan sebesar 50-70% berhasil dicapai pada Kuartal II.
   3. Jadwal audit ISO 27001 untuk sistem penyimpanan cloud DMS bulan depan.`;
   }
 
   return isEn
-    ? `Thank you for your query regarding "${prompt}". LARS AI (Gemini 2.5 Flash) has processed your request. How else may I assist your maritime operations today?`
-    : `Terima kasih atas pertanyaan Anda mengenai "${prompt}". LARS AI (Gemini 2.5 Flash) siap membantu analisis operasional, survei kapal, dan manajemen dokumen maritim Anda. Apakah ada informasi spesifik lain yang ingin ditanyakan?`;
+    ? `Thank you for your query regarding "${prompt}". LARS-AI Engine has processed your request. How else may I assist your maritime operations today?`
+    : `Terima kasih atas pertanyaan Anda mengenai "${prompt}". LARS-AI Engine siap membantu analisis operasional, survei kapal, dan manajemen dokumen maritim Anda. Apakah ada informasi spesifik lain yang ingin ditanyakan?`;
 }

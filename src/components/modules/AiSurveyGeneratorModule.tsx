@@ -75,7 +75,7 @@ export const AiSurveyGeneratorModule: React.FC = () => {
     try {
       const visionResult = await analyzeImageWithGeminiVision(sample.imageUrl, sample.description);
       setVisionAnalysisResult(visionResult);
-      showNotification('Analisis Computer Vision Gemini 3.5 Flash selesai!');
+      showNotification('Analisis Computer Vision LARS-AI selesai!');
     } catch (e) {
       setVisionAnalysisResult(sample.detectedDefect);
     } finally {
@@ -285,7 +285,7 @@ export const AiSurveyGeneratorModule: React.FC = () => {
                 2. Computer Vision Foto Inspeksi
               </div>
               <span className="text-[9px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded border border-emerald-200">
-                Gemini Vision API
+                LARS Vision AI
               </span>
             </div>
 
@@ -319,7 +319,7 @@ export const AiSurveyGeneratorModule: React.FC = () => {
                 {isAnalyzingVision && <Loader2 className="w-3 h-3 text-emerald-600 animate-spin" />}
               </div>
               <p className="text-xs text-emerald-900 font-medium leading-relaxed">
-                {isAnalyzingVision ? 'Menganalisis piksel foto menggunakan Gemini 3.5 Flash...' : visionAnalysisResult}
+                {isAnalyzingVision ? 'Menganalisis piksel foto menggunakan LARS Vision AI...' : visionAnalysisResult}
               </p>
             </div>
           </div>

@@ -150,7 +150,7 @@ export const WorkflowTrackerModule: React.FC = () => {
           <div className="grid grid-cols-2 gap-3 text-xs">
             <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
               <span className="text-[10px] text-slate-400 uppercase block font-bold">ENGINE AI/MODULE</span>
-              <span className="font-bold text-teal-700">Gemini 3.5 Flash / Cloud Vault</span>
+              <span className="font-bold text-teal-700">LARS-AI Engine / Cloud Vault</span>
             </div>
             <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
               <span className="text-[10px] text-slate-400 uppercase block font-bold">SECURITY PROTOCOL</span>

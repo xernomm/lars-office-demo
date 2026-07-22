@@ -26,7 +26,7 @@ export const AiChatbotModule: React.FC = () => {
     {
       id: 'welcome-1',
       sender: 'LARS AI Engine',
-      text: 'Halo! Saya **LARS AI Assistant** (powered by `gemini-3.5-flash`). Ada yang bisa saya bantu terkait SOP survei maritim, analisis dokumen kapal, regulasi SOLAS/MARPOL, atau pembuatan draft email & notulen?',
+      text: 'Halo! Saya **LARS-AI Assistant**. Ada yang bisa saya bantu terkait SOP survei maritim, analisis dokumen kapal, regulasi SOLAS/MARPOL, atau pembuatan draft email & notulen?',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       isAi: true,
       language: 'ID',
@@ -70,7 +70,7 @@ export const AiChatbotModule: React.FC = () => {
       
       const aiMessage: ChatMessage = {
         id: `ai-${Date.now()}`,
-        sender: 'LARS AI (gemini-3.5-flash)',
+        sender: 'LARS-AI',
         text: responseText,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         isAi: true,
@@ -81,8 +81,8 @@ export const AiChatbotModule: React.FC = () => {
     } catch (err) {
       const errorMessage: ChatMessage = {
         id: `err-${Date.now()}`,
-        sender: 'LARS AI',
-        text: 'Maaf, terjadi masalah koneksi AI. Menggunakan jawaban standar LARS AI.',
+        sender: 'LARS-AI',
+        text: 'Maaf, terjadi masalah koneksi AI. Menggunakan jawaban standar LARS-AI.',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         isAi: true,
         language,
@@ -136,7 +136,7 @@ export const AiChatbotModule: React.FC = () => {
             <div className="flex items-center gap-2">
               <h2 className="font-bold text-slate-800 text-sm">AI Chatbot Assistant</h2>
               <span className="bg-teal-50 text-teal-700 text-[10px] font-extrabold px-2 py-0.5 rounded border border-teal-200">
-                gemini-3.5-flash
+                LARS-AI
               </span>
             </div>
             <p className="text-[11px] text-slate-500 font-medium">
@@ -307,7 +307,7 @@ export const AiChatbotModule: React.FC = () => {
             </div>
             <div className="bg-white border border-slate-200 rounded-2xl rounded-tl-none p-4 text-xs text-slate-500 flex items-center gap-3 shadow-xs">
               <Loader2 className="w-4 h-4 text-teal-600 animate-spin" />
-              <span>LARS AI (`gemini-3.5-flash`) sedang memproses tanggapan...</span>
+              <span>LARS-AI sedang memproses tanggapan...</span>
             </div>
           </div>
         )}

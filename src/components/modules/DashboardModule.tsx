@@ -118,7 +118,7 @@ export const DashboardModule: React.FC<DashboardModuleProps> = ({ activeRole, on
                 </div>
                 <div>
                   <div className="flex justify-between text-xs font-bold mb-1">
-                    <span className="text-teal-800 font-black">Waktu Pembuatan Laporan LARS AI (Gemini 3.5)</span>
+                    <span className="text-teal-800 font-black">Waktu Pembuatan Laporan LARS-AI</span>
                     <span className="text-emerald-600 font-mono font-black">3.5 Jam / Laporan</span>
                   </div>
                   <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
@@ -310,7 +310,7 @@ export const DashboardModule: React.FC<DashboardModuleProps> = ({ activeRole, on
             <div className="bg-white border border-slate-200 p-4 rounded-2xl space-y-2 shadow-xs">
               <span className="text-[10px] font-bold text-slate-400 uppercase">API HEALTH LATENCY</span>
               <div className="text-2xl font-black text-purple-700">42 ms</div>
-              <p className="text-[10px] text-slate-500 font-medium">Gemini 3.5 Flash Engine</p>
+              <p className="text-[10px] text-slate-500 font-medium">LARS-AI Engine</p>
             </div>
           </div>
 
