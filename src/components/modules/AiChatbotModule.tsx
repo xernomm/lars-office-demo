@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { ChatMessage } from '../../types';
 import { CHAT_PRESETS } from '../../data/mockData';
 import { sendChatMessageToGemini } from '../../services/geminiService';
@@ -119,28 +121,6 @@ export const AiChatbotModule: React.FC = () => {
       case 'meeting': return Users;
       default: return Sparkles;
     }
-  };
-
-  const renderMarkdown = (content: string) => {
-    const lines = content.split('\n');
-    return lines.map((line, idx) => {
-      if (line.startsWith('### ')) {
-        return <h3 key={idx} className="text-sm font-extrabold text-teal-700 mt-2 mb-1">{line.replace('### ', '')}</h3>;
-      }
-      if (line.startsWith('**') && line.endsWith('**')) {
-        return <p key={idx} className="font-bold text-slate-800 my-1">{line.replace(/\*\*/g, '')}</p>;
-      }
-      if (line.trim().startsWith('- ') || line.trim().startsWith('• ')) {
-        const bulletContent = line.trim().replace(/^[-•]\s*/, '');
-        return (
-          <li key={idx} className="ml-4 list-disc text-slate-700 my-0.5">
-            {bulletContent.replace(/\*\*(.*?)\*\*/g, '$1')}
-          </li>
-        );
-      }
-      if (line.trim() === '') return <div key={idx} className="h-1.5" />;
-      return <p key={idx} className="my-0.5 leading-relaxed text-slate-700">{line.replace(/\*\*(.*?)\*\*/g, '$1')}</p>;
-    });
   };
 
   return (
@@ -269,8 +249,52 @@ export const AiChatbotModule: React.FC = () => {
                 </div>
               </div>
 
-              {/* Message Content */}
-              <div>{msg.isAi ? renderMarkdown(msg.text) : <p>{msg.text}</p>}</div>
+              {/* Message Content with Full Markdown + remarkGFM Rendering */}
+              <div>
+                {msg.isAi ? (
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      h1: ({ children }) => <h1 className="text-base font-black text-teal-800 mt-3 mb-1.5 border-b border-slate-200 pb-1">{children}</h1>,
+                      h2: ({ children }) => <h2 className="text-sm font-extrabold text-teal-800 mt-2.5 mb-1">{children}</h2>,
+                      h3: ({ children }) => <h3 className="text-xs font-extrabold text-teal-700 mt-2 mb-1">{children}</h3>,
+                      p: ({ children }) => <p className="my-1.5 leading-relaxed text-slate-700">{children}</p>,
+                      strong: ({ children }) => <strong className="font-extrabold text-slate-900">{children}</strong>,
+                      em: ({ children }) => <em className="italic text-slate-800">{children}</em>,
+                      ul: ({ children }) => <ul className="list-disc pl-5 my-1.5 space-y-1 text-slate-700">{children}</ul>,
+                      ol: ({ children }) => <ol className="list-decimal pl-5 my-1.5 space-y-1 text-slate-700">{children}</ol>,
+                      li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+                      blockquote: ({ children }) => (
+                        <blockquote className="border-l-3 border-teal-500 pl-3 py-1 my-2 bg-teal-50/60 rounded-r-lg text-slate-700 italic">
+                          {children}
+                        </blockquote>
+                      ),
+                      code: ({ inline, className, children, ...props }: any) => {
+                        if (inline) {
+                          return <code className="bg-slate-100 text-teal-800 font-mono text-[11px] px-1.5 py-0.5 rounded border border-slate-200 font-semibold">{children}</code>;
+                        }
+                        return (
+                          <div className="my-2 rounded-xl bg-slate-900 text-teal-300 p-3 font-mono text-[11px] overflow-x-auto shadow-inner border border-slate-800">
+                            <code>{children}</code>
+                          </div>
+                        );
+                      },
+                      table: ({ children }) => (
+                        <div className="overflow-x-auto my-2 border border-slate-200 rounded-xl">
+                          <table className="min-w-full divide-y divide-slate-200 text-xs">{children}</table>
+                        </div>
+                      ),
+                      thead: ({ children }) => <thead className="bg-slate-100 font-extrabold text-slate-800">{children}</thead>,
+                      th: ({ children }) => <th className="px-3 py-2 text-left">{children}</th>,
+                      td: ({ children }) => <td className="px-3 py-2 border-t border-slate-100">{children}</td>,
+                    }}
+                  >
+                    {msg.text}
+                  </ReactMarkdown>
+                ) : (
+                  <p className="my-0.5 leading-relaxed">{msg.text}</p>
+                )}
+              </div>
             </div>
           </div>
         ))}
