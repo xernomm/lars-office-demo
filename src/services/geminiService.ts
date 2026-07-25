@@ -13,7 +13,7 @@ try {
   console.warn('AI initialization notice:', err);
 }
 
-export const MODEL_NAME = 'gemini-2.5-flash';
+export const MODEL_NAME = 'gemini-3.5-flash';
 
 /**
  * AI Chat Assistant Handler
