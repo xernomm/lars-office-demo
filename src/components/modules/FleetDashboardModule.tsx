@@ -1,7 +1,7 @@
 import React from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { ModuleType } from '../../types';
-import { OpenLayersVesselMap } from '../OpenLayersVesselMap';
+import { MarineTrafficMap } from '../MarineTrafficMap';
 import {
   MOCK_VESSELS, MOCK_UPCOMING_TASKS, MOCK_MAINTENANCE_CHART,
   MOCK_TOP_EXPENSES, FLEET_OVERVIEW_DATA, CERTIFICATE_STATUS_DATA,
@@ -98,79 +98,50 @@ export const FleetDashboardModule: React.FC<FleetDashboardModuleProps> = ({ onNa
         </div>
       </div>
 
-      {/* Fleet Overview + Vessel Map + Upcoming Tasks */}
+      {/* Fleet Overview + MarineTraffic AIS Live Map */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Fleet Overview Donut */}
-        <div className="lg:col-span-3 bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
-          <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-4">FLEET OVERVIEW</h3>
-          <div className="flex justify-center">
-            <ResponsiveContainer width={180} height={180}>
-              <PieChart>
-                <Pie data={FLEET_OVERVIEW_DATA} cx="50%" cy="50%" innerRadius={55} outerRadius={80} paddingAngle={3} dataKey="value">
-                  {FLEET_OVERVIEW_DATA.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="text-center -mt-24 mb-16">
-            <div className="text-2xl font-black text-slate-900">{totalVessels}</div>
-            <div className="text-[10px] text-slate-500 font-bold uppercase">TOTAL</div>
-          </div>
-          <div className="space-y-2">
-            {FLEET_OVERVIEW_DATA.map((item) => (
-              <div key={item.name} className="flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
-                  <span className="text-slate-600 font-medium">{item.name}</span>
+        <div className="lg:col-span-3 bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+          <div>
+            <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-4">FLEET OVERVIEW</h3>
+            <div className="flex justify-center">
+              <ResponsiveContainer width={180} height={180}>
+                <PieChart>
+                  <Pie data={FLEET_OVERVIEW_DATA} cx="50%" cy="50%" innerRadius={55} outerRadius={80} paddingAngle={3} dataKey="value">
+                    {FLEET_OVERVIEW_DATA.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="text-center -mt-24 mb-16">
+              <div className="text-2xl font-black text-slate-900">{totalVessels}</div>
+              <div className="text-[10px] text-slate-500 font-bold uppercase">TOTAL</div>
+            </div>
+            <div className="space-y-2">
+              {FLEET_OVERVIEW_DATA.map((item) => (
+                <div key={item.name} className="flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
+                    <span className="text-slate-600 font-medium">{item.name}</span>
+                  </div>
+                  <span className="font-bold text-slate-800">{item.value} ({Math.round(item.value / totalVessels * 100)}%)</span>
                 </div>
-                <span className="font-bold text-slate-800">{item.value} ({Math.round(item.value / totalVessels * 100)}%)</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+          <button
+            onClick={() => onNavigateModule('fleet_vessels')}
+            className="mt-4 w-full bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold py-2 rounded-xl border border-slate-200 flex items-center justify-center gap-1 transition-colors"
+          >
+            Manage Vessels <ChevronRight className="w-3.5 h-3.5 text-teal-600" />
+          </button>
         </div>
 
-        {/* Vessel Status Map (OpenLayers) */}
-        <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider">VESSEL STATUS MAP</h3>
-            <button onClick={() => onNavigateModule('fleet_vessels')} className="text-[10px] text-teal-600 font-bold hover:underline flex items-center gap-1">View on Map <ChevronRight className="w-3 h-3" /></button>
-          </div>
-          <OpenLayersVesselMap />
-          <div className="flex items-center gap-4 mt-3 justify-center">
-            {[{ label: 'At Sea', color: 'bg-sky-500' }, { label: 'In Port', color: 'bg-emerald-500' }, { label: 'Maintenance', color: 'bg-amber-500' }, { label: 'Laid Up', color: 'bg-slate-400' }].map(l => (
-              <div key={l.label} className="flex items-center gap-1.5 text-[10px] text-slate-600 font-medium"><div className={`w-2 h-2 rounded-full ${l.color}`} />{l.label}</div>
-            ))}
-          </div>
-        </div>
-
-        {/* Upcoming Tasks */}
-        <div className="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider">UPCOMING TASKS</h3>
-            <button onClick={() => onNavigateModule('ops_maintenance')} className="text-[10px] text-teal-600 font-bold hover:underline flex items-center gap-1">View all <ChevronRight className="w-3 h-3" /></button>
-          </div>
-          <div className="space-y-3">
-            {MOCK_UPCOMING_TASKS.map((task) => {
-              const Icon = getTaskIcon(task.icon);
-              return (
-                <div key={task.id} className="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
-                  <div className="p-1.5 rounded-lg bg-white border border-slate-200 shrink-0"><Icon className="w-4 h-4 text-teal-600" /></div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-xs font-bold text-slate-800">{task.title}</div>
-                    <div className="text-[10px] text-slate-500 font-medium">{task.vesselName}</div>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <div className="text-[10px] text-slate-600 font-medium">{task.dueDate}</div>
-                    <span className={`text-[9px] font-extrabold px-1.5 py-0.5 rounded-full ${task.status === 'Overdue' ? 'bg-rose-100 text-rose-800' : task.status === 'Due Soon' ? 'bg-amber-100 text-amber-800' : 'bg-sky-100 text-sky-800'}`}>
-                      {task.status}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        {/* MarineTraffic Live AIS Map Component */}
+        <div className="lg:col-span-9">
+          <MarineTrafficMap heightClass="h-[480px]" />
         </div>
       </div>
 

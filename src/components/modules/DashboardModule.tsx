@@ -1,6 +1,7 @@
 import React from 'react';
 import { UserRole, ModuleType } from '../../types';
 import { USER_ROLES } from '../../data/mockData';
+import { MarineTrafficMap } from '../MarineTrafficMap';
 import { 
   TrendingUp, 
   DollarSign, 
@@ -50,6 +51,11 @@ export const DashboardModule: React.FC<DashboardModuleProps> = ({ activeRole, on
             <span>Buat Laporan AI Baru</span>
           </button>
         </div>
+      </div>
+
+      {/* Featured MarineTraffic AIS Live Fleet Tracking Section */}
+      <div className="space-y-3">
+        <MarineTrafficMap heightClass="h-[440px]" />
       </div>
 
       {/* RENDER DASHBOARD DYNAMICALLY BASED ON ACTIVE ROLE */}

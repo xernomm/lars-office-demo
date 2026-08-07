@@ -140,6 +140,12 @@ export interface Vessel {
   coordinates: { lat: number; lng: number };
   speed: number;
   heading: number;
+  course?: number;
+  draught?: number;
+  destination?: string;
+  eta?: string;
+  aisLastUpdate?: string;
+  marineTrafficUrl?: string;
   nextMaintenance: string;
   maintenanceType: string;
   certificateCount: number;

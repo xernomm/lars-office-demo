@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MOCK_VESSELS } from '../../data/fleetData';
 import { Vessel } from '../../types';
-import { Ship, Search, Filter, X, MapPin, Anchor, Calendar, Users, Shield, Eye, ChevronRight, Gauge } from 'lucide-react';
+import { Ship, Search, Filter, X, MapPin, Anchor, Calendar, Users, Shield, Eye, ChevronRight, Gauge, Radio, ExternalLink } from 'lucide-react';
 
 export const VesselsModule: React.FC = () => {
   const [vessels] = useState(MOCK_VESSELS);
@@ -71,10 +71,37 @@ export const VesselsModule: React.FC = () => {
                 <div key={i} className="bg-slate-50 p-3 rounded-xl border border-slate-200"><span className="text-[10px] text-slate-400 font-bold uppercase block">{item.l}</span><span className="text-xs font-bold text-slate-800">{item.v}</span></div>
               ))}
             </div>
-            <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-              <div className="text-[10px] font-bold text-slate-400 uppercase">CURRENT POSITION</div>
-              <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-teal-600" /><div><span className="text-xs font-bold text-slate-800">{selectedVessel.location}</span><span className="text-[10px] text-slate-500 font-mono ml-2">{selectedVessel.coordinates.lat.toFixed(4)}°, {selectedVessel.coordinates.lng.toFixed(4)}°</span></div></div>
+            <div className="bg-slate-900 text-white p-4 rounded-xl border border-slate-800 space-y-3 shadow-md">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
+                  <span className="text-xs font-bold text-cyan-300 uppercase tracking-wide">MARINETRAFFIC AIS LIVE TRACKING</span>
+                </div>
+                <a
+                  href={`https://www.marinetraffic.com/en/ais/details/ships/mmsi:${selectedVessel.mmsi}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800 px-2 py-1 rounded-lg font-bold hover:bg-cyan-900 flex items-center gap-1"
+                >
+                  MarineTraffic.com <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+              <div className="flex items-center justify-between text-[11px] text-slate-300">
+                <span>Posisi AIS Terkini:</span>
+                <span className="font-bold text-white">{selectedVessel.location}</span>
+              </div>
+              <div className="w-full h-44 rounded-lg overflow-hidden border border-slate-800">
+                <iframe
+                  title={`MarineTraffic Live ${selectedVessel.name}`}
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  scrolling="no"
+                  src={`https://www.marinetraffic.com/en/ais/embed/zoom:10/centerv:${selectedVessel.coordinates.lat}/centerx:${selectedVessel.coordinates.lng}/maptype:1/shownames:true/mmsi:${selectedVessel.mmsi}`}
+                />
+              </div>
             </div>
+
             <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
               <div className="text-[10px] font-bold text-slate-400 uppercase">NEXT MAINTENANCE</div>
               <div className="flex items-center gap-2"><Gauge className="w-4 h-4 text-amber-600" /><div><span className="text-xs font-bold text-slate-800">{selectedVessel.maintenanceType}</span><span className="text-[10px] text-slate-500 ml-2">{selectedVessel.nextMaintenance}</span></div></div>
